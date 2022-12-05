@@ -24,6 +24,8 @@ if sum.isdigit:
                 print(f"{n:<10} {sum_1:<20} 2% - {persent_1} грн")
 
         if int(year) == 5:
+            print("Сумма к оплате помесячно за пять лет: \n", "*" * 100)
+            print(r)
             for i in range(1, 25):
                 persent_1 = sum_2 * 1.02 - sum_2
                 persent_1 = float('{:.2f}'.format(persent_1))
