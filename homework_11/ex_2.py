@@ -15,7 +15,7 @@ count = 0
 for i in set_1:
     if i not in set_2:
         count += 1
-        if count == len(max(set_1, set_2)):
+        if count == max(len(set_1), len(set_2)):
             print("В множествах НЕТ совпадений")
             exit(0)
 
