@@ -1,12 +1,28 @@
 # простыми числами являются все что больше 1
 
-y_value = int(input("Введите значение степени: "))
-x_value = int(input("Введите до какого числа программа будет возводить числа в "
-                    "степень: "))
+x_value = int(input("Введите начало диапазона: "))
+y_value = int(input("Введите конец диапазона: "))
 
 def func(x, y):
-    for i in range(2, x+1):
-        yield  i ** y
+    for i in range(x, y+1):
+        yield i
 
 for n in func(x_value, y_value):
-    print(n, end=" ")
+    if n != 0 and n != 1 \
+        and (n % 2 != 0 or n == 2) and (n % 3 != 0 or n == 3)\
+        and (n % 5 != 0 or n == 5) and (n % 7 != 0 or n == 7):
+        print(n, end=" ")
+
+# Просто эксперимент:
+
+# def simple_values(x, y):
+#     value_list = []
+#     for n in func(x, y):
+#         if n != 0 and n != 1 \
+#             and (n % 2 != 0 or n == 2) and (n % 3 != 0 or n == 3)\
+#             and (n % 5 != 0 or n == 5) and (n % 7 != 0 or n == 7):
+#             value_list.append(n)
+#     return value_list
+#
+#
+# print("Простые числа в заданном диапазоне: ", simple_values(x_value, y_value))
