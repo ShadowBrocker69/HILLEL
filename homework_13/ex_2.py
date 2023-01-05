@@ -24,11 +24,11 @@ def check_inside(x):
 
 def check_password(funk):
     def wrapper(*args, **kwargs):
-
-        pwd = funk(*args, **kwargs)
-
-        global password
-        password = list(pwd)
+        #
+        # pwd = funk(*args, **kwargs)
+        #
+        # global password
+        # password = list(pwd)
         s = '''!"#$%&'()*+,-./:;<=>?@[\]^`{|}~'''
         symbols = list(s)
         d = '0123456789'
@@ -37,6 +37,10 @@ def check_password(funk):
         letters = list(l)
 
         while True:
+            pwd = funk(*args, **kwargs)
+
+            global password
+            password = list(pwd)
             if check_inside(symbols) == 0 or check_inside(digits) == 0 or \
                 check_inside(letters) == 0 or len(pwd) < 8:
                 print("Пароль не соответсвтует требованиям: ")
@@ -50,10 +54,7 @@ def check_password(funk):
                           "другом языке.")
                 if len(pwd) < 8:
                     print("Пароль меньше 8 символов.")
-                return 0 # даже не представляю что надо сюда записать чтобы в
-                # случае оибок в пароле программа корректно регестрировала
-                # повторные вводы пароля. RETURN 0 написал просто так,
-                # чтобы хоть что-то возвращало и цикл не становился бесконечным
+
             else:
                 print("Пароль соответсвтует требованиям")
                 break
@@ -67,11 +68,11 @@ def check_password(funk):
 def password_request():
     print(request_text)
     pwd = input('Введите пароль: ')
-    while True:
-        if pwd == "\t" or pwd == ' ':
-            pwd = input("Пробелы и TAB не принимаются. Введите пароль заново: ")
-            continue
-        break
+
+    if pwd == "\t" or pwd == ' ':
+        pwd = input("Пробелы и TAB не принимаются. Введите пароль заново: ")
+
+
 
     return pwd
 
