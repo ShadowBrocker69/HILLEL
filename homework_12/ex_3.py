@@ -3,15 +3,16 @@
 x_value = int(input("Введите начало диапазона: "))
 y_value = int(input("Введите конец диапазона: "))
 
-def func(x, y):
-    for i in range(x, y+1):
-        yield i
+def func(x, y): # function-generator
+    for n in range(x, y):
+        if n != 0 \
+                and n != 1 and \
+                (n % 2 != 0 or n == 2) and (n % 3 != 0 or n == 3) and \
+                (n % 5 != 0 or n == 5) and (n % 7 != 0 or n == 7):
+            yield n
 
 for n in func(x_value, y_value):
-    if n != 0 and n != 1 \
-        and (n % 2 != 0 or n == 2) and (n % 3 != 0 or n == 3)\
-        and (n % 5 != 0 or n == 5) and (n % 7 != 0 or n == 7):
-        print(n, end=" ")
+    print(n, end=" ")
 
 # Просто эксперимент:
 
