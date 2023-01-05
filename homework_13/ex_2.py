@@ -1,12 +1,11 @@
 request_text = '''
     В пароле обязатрельно должны быть: 
         1) Хотя бы 1 цифра, 
-        2) Хотя 1 буква,
+        2) Хотя бы 1 буква,
         3) Хотя бы 1 спецсимвол (!"#$%&'()*+,-./:;<=>?@[\]^`{|}~)" 
         Нельзя использовать пробелы, Tab.
         Пароль должен быть на английском.'''
 
-print(request_text)
 
 def check_inside(x):
     count = 0
@@ -24,9 +23,10 @@ def check_inside(x):
 
 
 def check_password(funk):
-    def wrapper():
+    def wrapper(*args, **kwargs):
 
-        pwd = input('Введите пароль: ')
+        pwd = funk(*args, **kwargs)
+
         global password
         password = list(pwd)
         s = '''!"#$%&'()*+,-./:;<=>?@[\]^`{|}~'''
@@ -36,12 +36,27 @@ def check_password(funk):
         l = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
         letters = list(l)
 
-        if check_inside(symbols) == 0:
-            return None
-        if check_inside(digits) == 0:
-            return None
-        if check_inside(letters) == 0:
-            return None
+        while True:
+            if check_inside(symbols) == 0 or check_inside(digits) == 0 or \
+                check_inside(letters) == 0 or len(pwd) < 8:
+                print("Пароль не соответсвтует требованиям: ")
+
+                if check_inside(symbols) == 0:
+                    print("В пароле отсутствуют спецсимволы.")
+                if check_inside(digits) == 0:
+                    print("В пароле отсутствуют цифры.")
+                if check_inside(letters) == 0:
+                    print("В пароле отсутствуют буквы на английском/ присутвуют на "
+                          "другом языке.")
+                if len(pwd) < 8:
+                    print("Пароль меньше 8 символов.")
+                return 0 # даже не представляю что надо сюда записать чтобы в
+                # случае оибок в пароле программа корректно регестрировала
+                # повторные вводы пароля. RETURN 0 написал просто так,
+                # чтобы хоть что-то возвращало и цикл не становился бесконечным
+            else:
+                print("Пароль соответсвтует требованиям")
+                break
 
         return pwd
 
@@ -50,11 +65,16 @@ def check_password(funk):
 
 @ check_password
 def password_request():
+    print(request_text)
     pwd = input('Введите пароль: ')
-    if pwd == "\t" or pwd == ' ':
-        return None
+    while True:
+        if pwd == "\t" or pwd == ' ':
+            pwd = input("Пробелы и TAB не принимаются. Введите пароль заново: ")
+            continue
+        break
 
     return pwd
 
 
-print(password_request())
+print("Пароль соотвествует требованиям.")
+print("Пароль:", password_request())
